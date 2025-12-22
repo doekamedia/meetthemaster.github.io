@@ -1,0 +1,13 @@
+<script>
+  // Your Steam URI with UTMs
+  var steamAppUrl = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok1&utm_campaign=MtM09";
+  var fallbackUrl = "https://store.steampowered.com/app/3184620/";
+
+  // Try to open the app
+  window.location = steamAppUrl;
+
+  // If the app doesn't open in 2 seconds, send them to the web store
+  setTimeout(function() {
+    window.location = fallbackUrl;
+  }, 2000);
+</script>
