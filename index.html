@@ -1,28 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to Steam...</title>
+    <title>Open in Steam</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #1b2838; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+        .container { padding: 20px; }
+        .btn { background: linear-gradient(to right, #06bfff, #2d73ff); color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; text-decoration: none; display: inline-block; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .footer { margin-top: 20px; font-size: 12px; color: #8f98a0; }
+    </style>
 </head>
 <body>
-    <div style="text-align: center; font-family: sans-serif; margin-top: 50px;">
-        <p>Attempting to open the Steam App...</p>
-        <p>If nothing happens, <a href="https://store.steampowered.com/app/3184620/">click here to go to the store</a>.</p>
+    <div class="container">
+        <h2>Klaar om te spelen?</h2>
+        <p>Klik hieronder om de game direct in Steam te bekijken:</p>
+        
+        <a href="javascript:void(0);" onclick="openSteam()" class="btn">OPEN IN STEAM APP</a>
+
+        <div class="footer">
+            <p>Werkt de knop niet? Tik op de <b>...</b> rechtsboven en kies <b>'Open in browser'</b>.</p>
+        </div>
     </div>
 
     <script>
-      // Your Steam URI with UTMs
-      var steamAppUrl = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3W&utm_campaign=MtM09";
-      var fallbackUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
+      function openSteam() {
+        // Gebruik de specifieke mobiele deep link voor Steam
+        var steamAppUrl = "steam://store/3184620"; 
+        // Je UTM voor succes (ingelogd in app)
+        var successUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3W&utm_campaign=MtM09";
+        // Je UTM voor fallback (webbrowser)
+        var fallbackUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
 
-      // Try to open the app
-      window.location = steamAppUrl;
+        // Probeer de app te openen
+        window.location.href = steamAppUrl;
 
-      // If the app doesn't open in 2 seconds, send them to the web store
-      setTimeout(function() {
-        window.location = fallbackUrl;
-      }, 5000);
+        // Fallback na 1 seconde naar de webstore (met de juiste UTM)
+        setTimeout(function() {
+          window.location.href = fallbackUrl;
+        }, 1500);
+      }
     </script>
 </body>
 </html>
