@@ -16,7 +16,7 @@
         <h2>Klaar om te spelen?</h2>
         <p>Klik hieronder om de game direct in Steam te bekijken:</p>
         
-        <a href="javascript:void(0);" onclick="openSteam()" class="btn">OPEN IN STEAM APP</a>
+         <a href="steam://store/app/3184620" class="btn">OPEN STEAM APP</a>
 
         <div class="footer">
             <p>Werkt de knop niet? Tik op de <b>...</b> rechtsboven en kies <b>'Open in browser'</b>.</p>
@@ -26,7 +26,7 @@
     <script>
       function openSteam() {
         // Gebruik de specifieke mobiele deep link voor Steam
-        var steamAppUrl = "steam://store/3184620"; 
+        var steamAppUrl = "steam://store/app/3184620"; 
         // Je UTM voor succes (ingelogd in app)
         var successUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3W&utm_campaign=MtM09";
         // Je UTM voor fallback (webbrowser)
