@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open in Steam</title>
     <style>
-        /* Steam Kleurenpalet & Styling */
+        /* Steam Color Palette & Styling */
         body { 
             font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
             background-color: #1b2838; 
@@ -67,32 +67,31 @@
 </head>
 <body>
     <div class="container">
-        <h2>Bijna daar...</h2>
-        <p>Klik op de knop om de game in de <span class="highlight">Steam App</span> te openen en toe te voegen aan je wishlist.</p>
+        <h2>Almost there...</h2>
+        <p>Click the button below to open the <span class="highlight">Steam App</span> and add the game to your wishlist.</p>
         
         <a href="javascript:void(0);" onclick="openSteam()" class="btn">OPEN STEAM APP</a>
 
         <div class="footer">
-            <p>Werkt de knop niet?<br>Tik op de <span class="highlight">...</span> rechtsboven en kies <span class="highlight">'Openen in browser'</span>.</p>
+            <p>Button not working?<br>Tap the <span class="highlight">...</span> in the top right and select <span class="highlight">'Open in browser'</span>.</p>
         </div>
     </div>
 
     <script>
       function openSteam() {
-        // Directe app link (werkt vaak beter op Android)
+        // Deep link protocol for mobile Steam app
         var appLink = "steam://store/3184620"; 
         
-        // De links met UTM's voor tracking
+        // Tracking links
         var winUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3W&utm_campaign=MtM09";
         var failUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
 
-        // Stap 1: Probeer de app direct te openen
+        // Step 1: Attempt to open the app directly
         window.location.href = appLink;
 
-        // Stap 2: Fallback mechanisme
-        // We wachten 1.2 seconden. Als de app niet opent, gaan we naar de browser versie.
+        // Step 2: Fallback mechanism
+        // We wait 1.2 seconds. If the app doesn't trigger, we redirect to the web store.
         setTimeout(function() {
-          // Controleer of de gebruiker de pagina nog niet verlaten heeft (wat gebeurt als de app opent)
           window.location.href = failUrl;
         }, 1200);
       }
