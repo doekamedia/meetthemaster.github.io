@@ -1,171 +1,125 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Open in Steam</title>
-
     <style>
-
-        /* Steam Color Palette & Styling */
-
         body { 
-
             font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
-
             background-color: #1b2838; 
-
             background: radial-gradient(circle at top left, #1b2838 0%, #171a21 100%);
-
             color: #c6d4df; 
-
             display: flex; 
-
             align-items: center; 
-
             justify-content: center; 
-
-            height: 100vh; 
-
+            min-height: 100vh; 
             margin: 0; 
-
             text-align: center; 
-
         }
-
-        .container { 
-
-            padding: 30px; 
-
-            max-width: 400px;
-
-        }
-
-        h2 {
-
-            color: #ffffff;
-
-            font-size: 24px;
-
-            margin-bottom: 10px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-        }
-
-        p {
-
-            font-size: 16px;
-
-            line-height: 1.5;
-
-            margin-bottom: 25px;
-
-        }
-
-        .btn { 
-
-            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%); 
-
-            color: #ffffff; 
-
-            padding: 18px 40px; 
-
-            border: none; 
-
-            border-radius: 2px; 
-
-            font-size: 18px; 
-
-            font-weight: bold; 
-
-            text-decoration: none; 
-
-            display: inline-block; 
-
-            cursor: pointer; 
-
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-
-            transition: transform 0.1s ease;
-
-        }
-
-        .btn:active {
-
-            transform: scale(0.98);
-
-        }
-
-        .footer { 
-
-            margin-top: 40px; 
-
-            font-size: 13px; 
-
-            color: #8f98a0;
-
-            background: rgba(0,0,0,0.2);
-
-            padding: 15px;
-
-            border-radius: 4px;
-
-        }
-
-        .highlight {
-
-            color: #ffffff;
-
-            font-weight: bold;
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-    <div class="container">
-        <h2>Almost there...</h2>
-        <p>Click the button below to open the <span class="highlight">Steam App</span> and add the game to your wishlist.</p>
+        .container { padding: 20px; max-width: 400px; }
+        h2 { color: #ffffff; font-size: 22px; text-transform: uppercase; margin-bottom: 10px; }
+        p { font-size: 15px; color: #acb2b8; margin-bottom: 20px; }
         
-        <a href="steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09" class="btn" id="steamBtn">OPEN STEAM APP</a>
+        /* De Knop */
+        .btn { 
+            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%); 
+            color: #ffffff !important; 
+            padding: 16px 30px; 
+            border-radius: 3px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            display: inline-block; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
 
-        <div class="footer">
-            <p>Button not working?<br>Tap the <span class="highlight">...</span> in the top right and select <span class="highlight">'Open in browser'</span>.</p>
+        /* Instructie sectie voor TikTok/Safari */
+        .instruction-box {
+            margin-top: 35px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .instruction-box h3 {
+            font-size: 14px;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .step {
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .step-num {
+            background: #47bfff;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .highlight { color: #ffffff; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Open in Steam</h2>
+        <p>Tap the button to view the game and add it to your <span class="highlight">Wishlist</span>.</p>
+        
+        <a href="https://store.steampowered.com/app/3184620/?utm_source=tiktok" class="btn" id="steamBtn">
+            VIEW ON STEAM
+        </a>
+
+        <div class="instruction-box">
+            <h3>⚠️ Not opening in the app?</h3>
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the corner.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div>The Steam app will then launch automatically.</div>
+            </div>
         </div>
     </div>
 
-<script>
-    document.querySelector('.btn').onclick = function(e) {
-        e.preventDefault();
-        
-        var appId = "3184620";
-        var appUrl = "steam://store/" + appId;
-        var webUrl = "https://store.steampowered.com/app/" + appId;
+    <script>
+        document.getElementById('steamBtn').onclick = function(e) {
+            var isAndroid = /Android/i.test(navigator.userAgent);
+            
+            if (isAndroid) {
+                // Android staat deep-links makkelijker toe vanaf de knop
+                e.preventDefault();
+                window.location.href = "steam://store/3184620";
+                
+                // Fallback naar web als ze geen app hebben
+                setTimeout(function() {
+                    window.location.href = "https://store.steampowered.com/app/3184620/";
+                }, 1500);
+            }
+            // Op iPhone (Safari/TikTok) laten we de browser de HTTPS link afhandelen.
+            // Dit is de enige manier om die "Ongeldige URL" melding te voorkomen.
+        };
+    </script>
 
-        // Maak een onzichtbaar iframe aan (oude truc die Safari dwingt de app te zoeken)
-        var iframe = document.createElement("iframe");
-        iframe.style.border = "none";
-        iframe.style.width = "1px";
-        iframe.style.height = "1px";
-        iframe.src = appUrl;
-        document.body.appendChild(iframe);
-
-        // Als de app na 2 seconden niet is geopend, stuur dan door naar de webversie
-        setTimeout(function() {
-            window.location.href = webUrl;
-        }, 2000);
-    };
-</script>
 </body>
-
 </html>
