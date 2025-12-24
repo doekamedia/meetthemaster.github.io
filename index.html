@@ -88,26 +88,33 @@
         
     </div>
 <script>
-    window.onload = function() {
+    (function() {
         var appId = "3184620";
         var webUrl = "https://store.steampowered.com/app/" + appId + "/?utm_source=tiktok_auto";
         var isAndroid = /Android/i.test(navigator.userAgent);
         var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-        setTimeout(function() {
+        function performRedirect() {
             if (isAndroid) {
+                // Android direct proberen
                 window.location.href = "steam://store/" + appId;
-                setTimeout(function() { window.location.href = webUrl; }, 1500);
+                // Snelle fallback naar web
+                setTimeout(function() { window.location.href = webUrl; }, 500);
             } 
             else if (isiOS) {
-                // Op iOS werkt een directe redirect naar de HTTPS link vaak 
-                // beter dan een gesimuleerde klik op een knop.
-                // Safari herkent dit als Universal Link en opent de app.
+                // iOS: Direct naar de HTTPS link sturen (meest stabiel voor Safari)
                 window.location.href = webUrl;
             }
-        }, 1000); // 1 seconde wachten is perfect
-    };
+        }
 
+        // Voer uit zodra de basis van de pagina geladen is (veel sneller dan onload)
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", performRedirect);
+        } else {
+            performRedirect();
+        }
+    })();
+</script>
 
 </body>
 </html>
