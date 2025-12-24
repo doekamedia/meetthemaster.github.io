@@ -145,18 +145,25 @@
     </div>
 
     <script>
-        function openSteam() {
-            var appLink = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09"; 
-            var failUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
+function openSteam() {
+    var appId = "3184620";
+    var webUrl = "https://store.steampowered.com/app/" + appId + "/?utm_source=tiktok3WW&utm_campaign=MtM09";
+    
+    // Check of de gebruiker op een iPhone/iPad zit
+    var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-            // Probeer de app te openen
-            window.location.href = appLink;
-
-            // Fallback naar de webstore na 1.5 seconden
-            setTimeout(function() {
-                window.location.href = failUrl;
-            }, 1500);
-        }
+    if (isiOS) {
+        // Op iOS is de web-link betrouwbaarder, de app opent dan vaak automatisch via de browser
+        window.location.href = webUrl;
+    } else {
+        // Voor Android/PC: probeer het app-protocol
+        window.location.href = "steam://store/" + appId;
+        
+        setTimeout(function() {
+            window.location.href = webUrl;
+        }, 1500);
+    }
+}
 
         // OPTIE 1: Automatisch uitvoeren zodra de pagina laadt
         window.onload = function() {
