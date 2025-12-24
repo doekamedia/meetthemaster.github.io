@@ -1,76 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open in Steam</title>
-    <style>
-        /* Steam Color Palette & Styling */
-        body { 
-            font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
-            background-color: #1b2838; 
-            background: radial-gradient(circle at top left, #1b2838 0%, #171a21 100%);
-            color: #c6d4df; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0; 
-            text-align: center; 
-        }
-        .container { 
-            padding: 30px; 
-            max-width: 400px;
-        }
-        h2 {
-            color: #ffffff;
-            font-size: 24px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-        .btn { 
-            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%); 
-            color: #ffffff; 
-            padding: 18px 40px; 
-            border: none; 
-            border-radius: 2px; 
-            font-size: 18px; 
-            font-weight: bold; 
-            text-decoration: none; 
-            display: inline-block; 
-            cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: transform 0.1s ease;
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
-        .footer { 
-            margin-top: 40px; 
-            font-size: 13px; 
-            color: #8f98a0;
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
-            border-radius: 4px;
-        }
-        .highlight {
-            color: #ffffff;
-            font-weight: bold;
-        }
-    </style>
-</head>
 <body>
     <div class="container">
         <h2>Almost there...</h2>
         <p>Click the button below to open the <span class="highlight">Steam App</span> and add the game to your wishlist.</p>
         
-        <a href="steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09" class="btn">OPEN STEAM APP</a>
+        <a href="steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09" class="btn" id="steamBtn">OPEN STEAM APP</a>
 
         <div class="footer">
             <p>Button not working?<br>Tap the <span class="highlight">...</span> in the top right and select <span class="highlight">'Open in browser'</span>.</p>
@@ -78,23 +11,29 @@
     </div>
 
     <script>
-      function openSteam() {
-        // Deep link protocol for mobile Steam app
-        var appLink = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09"; 
-        
-        // Tracking links
-        var winUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09";
-        var failUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
+        function openSteam() {
+            var appLink = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=tiktok3WW&utm_campaign=MtM09"; 
+            var failUrl = "https://store.steampowered.com/app/3184620/?utm_source=tiktok3F&utm_campaign=MtM09";
 
-        // Step 1: Attempt to open the app directly
-        window.location.href = appLink;
+            // Probeer de app te openen
+            window.location.href = appLink;
 
-        // Step 2: Fallback mechanism
-        // We wait 1.2 seconds. If the app doesn't trigger, we redirect to the web store.
-        setTimeout(function() {
-          window.location.href = failUrl;
-        }, 1200);
-      }
+            // Fallback naar de webstore na 1.5 seconden
+            setTimeout(function() {
+                window.location.href = failUrl;
+            }, 1500);
+        }
+
+        // OPTIE 1: Automatisch uitvoeren zodra de pagina laadt
+        window.onload = function() {
+            // We voegen een kleine vertraging toe zodat de pagina eerst visueel laadt
+            setTimeout(openSteam, 500);
+        };
+
+        // OPTIE 2: Zorgen dat de knop ook de JS-functie gebruikt (voor betere tracking)
+        document.getElementById("steamBtn").onclick = function(e) {
+            e.preventDefault(); // Voorkom standaard link gedrag
+            openSteam();
+        };
     </script>
 </body>
-</html>
