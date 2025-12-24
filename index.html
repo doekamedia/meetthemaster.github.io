@@ -107,25 +107,7 @@
             }
         }, 1000); // 1 seconde wachten is perfect
     };
-</script>
-    <script>
-        document.getElementById('steamBtn').onclick = function(e) {
-            var isAndroid = /Android/i.test(navigator.userAgent);
-            
-            if (isAndroid) {
-                // Android staat deep-links makkelijker toe vanaf de knop
-                e.preventDefault();
-                window.location.href = "steam://store/3184620";
-                
-                // Fallback naar web als ze geen app hebben
-                setTimeout(function() {
-                    window.location.href = "https://store.steampowered.com/app/3184620/";
-                }, 1500);
-            }
-            // Op iPhone (Safari/TikTok) laten we de browser de HTTPS link afhandelen.
-            // Dit is de enige manier om die "Ongeldige URL" melding te voorkomen.
-        };
-    </script>
+
 
 </body>
 </html>
