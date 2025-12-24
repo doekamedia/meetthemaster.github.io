@@ -81,7 +81,7 @@
         <h2>Open in Steam</h2>
         <p>Tap the button to view the game and add it to your <span class="highlight">Wishlist</span>.</p>
         
-        <a href="https://store.steampowered.com/app/3184620/?utm_source=tiktok" class="btn" id="steamBtn">
+        <a href="https://store.steampowered.com/app/3184620/?utm_source=TTlink" class="btn" id="steamBtn">
             VIEW ON STEAM
         </a>
 
@@ -90,16 +90,16 @@
 <script>
     (function() {
         var appId = "3184620";
-        var webUrl = "https://store.steampowered.com/app/" + appId + "/?utm_source=tiktok_auto";
+        var webUrl = "https://store.steampowered.com/app/" + appId + "/?utm_source=TTlink_auto";
         var isAndroid = /Android/i.test(navigator.userAgent);
         var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
         function performRedirect() {
             if (isAndroid) {
                 // Android direct proberen
-                window.location.href = "steam://store/" + appId;
+                window.location.href = "steam://openurl/" + webUrl;
                 // Snelle fallback naar web
-                setTimeout(function() { window.location.href = webUrl; }, 500);
+                setTimeout(function() { window.location.href = webUrl; }, 800);
             } 
             else if (isiOS) {
                 // iOS: Direct naar de HTTPS link sturen (meest stabiel voor Safari)
