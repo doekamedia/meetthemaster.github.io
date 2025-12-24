@@ -144,39 +144,28 @@
         </div>
     </div>
 
-    <script>
-function openSteam() {
-    var appId = "3184620";
-    var webUrl = "https://store.steampowered.com/app/" + appId + "/?utm_source=tiktok3WW&utm_campaign=MtM09";
-    
-    // Check of de gebruiker op een iPhone/iPad zit
-    var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isiOS) {
-        // Op iOS is de web-link betrouwbaarder, de app opent dan vaak automatisch via de browser
-        window.location.href = webUrl;
-    } else {
-        // Voor Android/PC: probeer het app-protocol
-        window.location.href = "steam://store/" + appId;
+script>
+    document.querySelector('.btn').onclick = function(e) {
+        e.preventDefault();
         
+        var appId = "3184620";
+        var appUrl = "steam://store/" + appId;
+        var webUrl = "https://store.steampowered.com/app/" + appId;
+
+        // Maak een onzichtbaar iframe aan (oude truc die Safari dwingt de app te zoeken)
+        var iframe = document.createElement("iframe");
+        iframe.style.border = "none";
+        iframe.style.width = "1px";
+        iframe.style.height = "1px";
+        iframe.src = appUrl;
+        document.body.appendChild(iframe);
+
+        // Als de app na 2 seconden niet is geopend, stuur dan door naar de webversie
         setTimeout(function() {
             window.location.href = webUrl;
-        }, 1500);
-    }
-}
-
-        // OPTIE 1: Automatisch uitvoeren zodra de pagina laadt
-        window.onload = function() {
-            // We voegen een kleine vertraging toe zodat de pagina eerst visueel laadt
-            setTimeout(openSteam, 500);
-        };
-
-        // OPTIE 2: Zorgen dat de knop ook de JS-functie gebruikt (voor betere tracking)
-        document.getElementById("steamBtn").onclick = function(e) {
-            e.preventDefault(); // Voorkom standaard link gedrag
-            openSteam();
-        };
-    </script>
+        }, 2000);
+    };
+</script>
 </body>
 
 </html>
