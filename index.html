@@ -18,22 +18,12 @@
             text-align: center; 
         }
         .container { padding: 30px; max-width: 400px; }
-        
-        /* Steam Icon/Logo lookalike */
-        .steam-logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-
         h2 { color: #ffffff; font-size: 24px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
         p { font-size: 16px; color: #acb2b8; margin-bottom: 30px; line-height: 1.4; }
         
-        /* De centrale instructiebox */
         .instruction-box {
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #47bfff; /* Steam blauw accent */
+            border: 1px solid #47bfff;
             padding: 25px;
             border-radius: 4px;
             text-align: left;
@@ -70,30 +60,21 @@
             flex-shrink: 0;
         }
 
-        .highlight { 
-            color: #47bfff; 
-            font-weight: bold; 
-        }
-
-        .footer-note {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #565d63;
-        }
+        .highlight { color: #47bfff; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Almost there...</h2>
-        <p>To view the game in the <span class="highlight">Steam App</span> and add it to your wishlist, please follow these steps:</p>
+        <p>TikTok is currently blocking the connection. To open the <span class="highlight">Steam App</span>, please follow these steps:</p>
         
         <div class="instruction-box">
             <h3>Required Action</h3>
             
             <div class="step">
                 <div class="step-num">1</div>
-                <div>Tap the <span class="highlight">three dots (...)</span> or the <span class="highlight">share icon</span> in the top corner.</div>
+                <div>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the corner.</div>
             </div>
 
             <div class="step">
@@ -103,14 +84,24 @@
 
             <div class="step">
                 <div class="step-num">3</div>
-                <div>The Steam app will launch <span class="highlight">automatically</span>.</div>
+                <div>The Steam app will then launch <span class="highlight">automatically</span>.</div>
             </div>
         </div>
-
-        <div class="footer-note">
-            This redirect is required due to in-app browser limitations.
-        </div>
     </div>
+
+    <script>
+        (function() {
+            var appId = "3184620";
+            var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
+            var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
+
+            // Zodra de pagina laadt, proberen we de redirect.
+            // In de TikTok-browser gebeurt er niets (geblokkeerd).
+            // Zodra de gebruiker op "Open in Browser" klikt, opent deze pagina opnieuw in Safari/Chrome.
+            // OMDAT het dan een echte browser is, werkt de redirect naar de Steam-app direct.
+            window.location.href = steamUrl;
+        })();
+    </script>
 
 </body>
 </html>
