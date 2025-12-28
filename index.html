@@ -1,102 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open in Steam</title>
     <style>
         body { 
-            font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             background-color: #1b2838; 
             background: radial-gradient(circle at top left, #1b2838 0%, #171a21 100%);
             color: #c6d4df; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            text-align: center; 
+            display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; margin: 0; text-align: center;
         }
-        .container { padding: 20px; max-width: 400px; }
-        h2 { color: #ffffff; font-size: 22px; text-transform: uppercase; margin-bottom: 10px; }
-        p { font-size: 15px; color: #acb2b8; margin-bottom: 20px; }
+        .container { padding: 30px; max-width: 380px; width: 90%; }
         
-        /* De Knop */
-        .btn { 
-            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%); 
-            color: #ffffff !important; 
-            padding: 16px 30px; 
-            border-radius: 3px; 
-            font-size: 18px; 
-            font-weight: bold; 
-            text-decoration: none; 
-            display: inline-block; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: 0.2s;
-        }
-        .btn:active { transform: scale(0.95); }
-
-        /* Instructie sectie voor TikTok/Safari */
-        .instruction-box {
-            margin-top: 35px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Instructie animatie */
+        .instruction-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #47bfff;
             padding: 20px;
-            border-radius: 8px;
-            text-align: left;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(71, 191, 255, 0.2);
+            animation: pulse 2s infinite;
         }
-        .instruction-box h3 {
-            font-size: 14px;
-            color: #ffffff;
-            margin: 0 0 10px 0;
-            display: flex;
-            align-items: center;
+
+        @keyframes pulse {
+            0% { border-color: #47bfff; }
+            50% { border-color: #ffffff; }
+            100% { border-color: #47bfff; }
         }
-        .step {
-            font-size: 13px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
+
+        h2 { color: #ffffff; font-size: 22px; margin: 0 0 15px 0; text-transform: uppercase; }
+        
+        .step { display: flex; align-items: center; margin-bottom: 15px; text-align: left; font-size: 16px; }
+        .step-num { 
+            background: #47bfff; color: white; width: 28px; height: 28px; 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; margin-right: 12px; flex-shrink: 0; font-weight: bold; 
         }
-        .step-num {
-            background: #47bfff;
-            color: white;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            margin-right: 10px;
-            flex-shrink: 0;
-            margin-top: 2px;
+
+        .highlight { color: #47bfff; font-weight: bold; }
+
+        .btn-steam {
+            display: block;
+            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%);
+            color: white !important;
+            padding: 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            transition: 0.3s;
         }
-        .highlight { color: #ffffff; font-weight: bold; }
+
+        .btn-steam:active { transform: scale(0.95); }
+
+        .footer { margin-top: 20px; font-size: 13px; color: #565d63; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Open in Steam</h2>
-        <p>Tap the button to view the game and add it to your <span class="highlight">Wishlist</span>.</p>
+        <div class="instruction-card">
+            <h2>Stap 1: Verlaat TikTok</h2>
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>Tik rechtsboven op de <span class="highlight">...</span></div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>Kies <span class="highlight">'Openen in Safari'</span></div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 15px; font-weight: bold;">Stap 2: Klik op de knop</div>
         
-        <a href="https://store.steampowered.com/app/3184620/?utm_source=TTbutton1&utm_campaign=mtm09" class="btn" id="steamBtn">
-            VIEW ON STEAM
+        <a href="steam://store/3184620" class="btn-steam">
+            Wishlist op Steam
         </a>
 
-        
+        <div class="footer">
+            De Steam App opent automatisch buiten TikTok.
+        </div>
     </div>
-<script>
-  // This runs as soon as the page loads
-  window.onload = function() {
-      // 1. Try to open the Steam App immediately
-      window.location.href = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=TTauto1&utm_campaign=mtm09";
-
-      // 2. If they are still on the page after 2 seconds (meaning app didn't open), 
-      // they can still use your manual button.
-  };
-</script>
 
 </body>
 </html>
