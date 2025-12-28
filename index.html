@@ -13,6 +13,12 @@
             min-height: 100vh; margin: 0; text-align: center; 
         }
         .container { padding: 30px; max-width: 400px; }
+        
+        /* STANDAARD: Instructies zijn zichtbaar */
+        #instruction-area { display: block; }
+        /* STANDAARD: Knop is onzichtbaar */
+        #browser-area { display: none; }
+
         .instruction-box {
             background: rgba(0, 0, 0, 0.4); border: 1px solid #47bfff;
             padding: 25px; border-radius: 4px; text-align: left; margin-bottom: 20px;
@@ -25,11 +31,11 @@
         }
         .highlight { color: #47bfff; font-weight: bold; }
         
-        /* De knop die pas verschijnt buiten TikTok */
         .go-button {
-            display: none; width: 100%; background: #47bfff;
+            width: 100%; background: linear-gradient(to right, #47bfff 5%, #1a44c2 95%);
             color: white; padding: 15px; border-radius: 3px;
             text-decoration: none; font-weight: bold; border: none; cursor: pointer;
+            font-size: 16px; text-transform: uppercase;
         }
     </style>
 </head>
@@ -38,41 +44,41 @@
     <div class="container">
         <div id="instruction-area">
             <h2>Almost there...</h2>
-            <p>TikTok blocks the connection. To open <span class="highlight">Steam</span>, follow these steps:</p>
+            <p>TikTok is blocking the connection. To open the page on <span class="highlight">Steam</span>, follow these steps:</p>
             <div class="instruction-box">
-                <div class="step"><div class="step-num">1</div><span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span>.</span></div>
-                <div class="step"><div class="step-num">2</div><span>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</span></div>
+                <div class="step"><div class="step-num">1</div><span>Tap the <span class="highlight">three dots (...)</span> in the corner.</span></div>
+                <div class="step"><div class="step-num">2</div><span>Select <span class="highlight">'Open in Browser'</span>.</span></div>
             </div>
         </div>
 
-        <button id="steamBtn" class="go-button">Continue to Steam Store</button>
+        <div id="browser-area">
+            <h2>Ready!</h2>
+            <p>Click below to continue to the Steam Store.</p>
+            <button id="steamBtn" class="go-button">Open Steam</button>
+        </div>
     </div>
 
     <script>
         (function() {
-            var ua = navigator.userAgent || navigator.vendor || window.opera;
-            var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
-
-            // De link is opgeknipt in stukjes zodat de telefoon hem niet herkent als URL
             var p1 = "https://store.";
-            var p2 = "steampowered.com/app/";
-            var p3 = "3184620/";
-            var p4 = "?utm_source=TT_instructions";
-            
-            var fullUrl = p1 + p2 + p3 + p4;
+            var p2 = "steampowered.com/app/3184620/";
+            var fullUrl = p1 + p2;
 
-            if (!isTikTok) {
-                // We zijn in Safari/Chrome: Toon de knop en probeer redirect
+            // We checken nu of we in een ECHTE browser zitten (Safari/Chrome)
+            // In TikTok is 'standalone' meestal false en de useragent bevat geen 'Safari' zonder 'AppleWebKit'
+            var isRealBrowser = /Safari/i.test(navigator.userAgent) && !/TikTok|FBAN|FBAV|Instagram/i.test(navigator.userAgent);
+
+            if (isRealBrowser) {
+                // Toon de knop alleen in Safari/Chrome
                 document.getElementById('instruction-area').style.display = 'none';
-                document.getElementById('steamBtn').style.display = 'block';
+                document.getElementById('browser-area').style.display = 'block';
                 
-                // Kleine vertraging voor de redirect
+                // Automatische redirect alleen in echte browser
                 setTimeout(function() {
                     window.location.href = fullUrl;
-                }, 500);
+                }, 800);
             }
 
-            // Handmatige klik werkt ALTIJD
             document.getElementById('steamBtn').addEventListener('click', function() {
                 window.location.href = fullUrl;
             });
