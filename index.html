@@ -6,35 +6,28 @@
     <title>Open in Steam</title>
     <style>
         body { 
-            font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             background-color: #1b2838; 
             background: radial-gradient(circle at top left, #1b2838 0%, #171a21 100%);
             color: #c6d4df; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            text-align: center; 
+            display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; margin: 0; text-align: center;
         }
-        .container { padding: 30px; max-width: 400px; }
-        h2 { color: #ffffff; font-size: 24px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
-        p { font-size: 16px; color: #acb2b8; margin-bottom: 30px; line-height: 1.4; }
+        .container { padding: 25px; max-width: 350px; width: 90%; }
+        h2 { color: #ffffff; font-size: 24px; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        p { font-size: 16px; color: #acb2b8; margin-bottom: 25px; line-height: 1.4; }
         
         .btn-steam {
-            display: inline-block;
+            display: block;
             background: linear-gradient(to right, #47bfff 0%, #1a7bb1 100%);
             color: white;
-            padding: 18px 30px;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
-            cursor: pointer;
-            border: none;
-            width: 100%;
+            margin-bottom: 30px;
             text-transform: uppercase;
         }
         .btn-steam:active { transform: scale(0.98); }
@@ -43,42 +36,54 @@
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid #47bfff; 
             padding: 20px;
-            border-radius: 4px;
+            border-radius: 8px;
             text-align: left;
-            margin-top: 30px;
         }
-        .step { font-size: 14px; margin-bottom: 10px; display: flex; align-items: flex-start; color: #ffffff; }
-        .step-num { background: #47bfff; color: #ffffff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; margin-right: 10px; flex-shrink: 0; }
+        .instruction-box h3 {
+            color: #47bfff;
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .step { margin-bottom: 12px; display: flex; align-items: flex-start; color: #ffffff; font-size: 15px; }
+        .step-num { 
+            background: #47bfff; color: white; width: 22px; height: 22px; 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; margin-right: 12px; flex-shrink: 0; font-weight: bold; font-size: 12px;
+        }
         .highlight { color: #47bfff; font-weight: bold; }
+        
+        .footer-note { margin-top: 25px; font-size: 11px; color: #565d63; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Redirecting to Steam...</h2>
-        <p>Klik op de knop om de game direct in de Steam App te bekijken en te wishlistten.</p>
+        <h2>Open Steam</h2>
+        <p>Gebruik de knop of open deze pagina in je browser om te wishlistten.</p>
         
-        <button id="mainBtn" class="btn-steam">BEKIJK OP STEAM</button>
+        <a href="steam://store/3184620" class="btn-steam">Bekijk op Steam</a>
 
         <div class="instruction-box">
-            <div style="font-size: 12px; color: #47bfff; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">Werkt de knop niet?</div>
+            <h3>Lukt het niet automatisch?</h3>
+            
             <div class="step">
                 <div class="step-num">1</div>
-                <div>Tik op de <span class="highlight">...</span> (rechtsboven).</div>
+                <div>Tik op de <span class="highlight">...</span> of het deel-icoon rechtsboven.</div>
             </div>
+            
             <div class="step">
                 <div class="step-num">2</div>
-                <div>Kies <span class="highlight">'Openen in browser'</span>.</div>
+                <div>Kies <span class="highlight">'Open in Safari'</span> of <span class="highlight">'Browser openen'</span>.</div>
             </div>
+        </div>
+
+        <div class="footer-note">
+            App ID: 3184620 | UTM: TTbutton1
         </div>
     </div>
 
-    <script>
-        // Gecodeerde waarden (Base64) om scanners te omzeilen
-        // dXJs: store.steampowered.com/app/3184620/?utm_source=TTbutton1&utm_campaign=mtm09
-        // aW50ZW50: intent://store.steampowered.com/app/3184620/?utm_source=TTbutton1&utm_campaign=mtm09#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;end
-        // c3RlYW0=: steam://store/3184620
-        
-        const config = {
-            rawUrl: "c3RvcmUuc3RlYW1wb3dlcmVkLmNvbS9hcHAvMzE4NDYyMC8/dXRtX3NvdXJjZT1UVGJ1dHRvbjEmdXRtX2NhbXBhaWduPW10bTA5",
-            androidIntent: "aW50ZW50Oi8vc3RvcmUuc3RlYW1wb3dlcmVkLmNvbS9hcHAvMzE4NDYyMC8/dXRtX3NvdXJjZT1UVGJ1dHRvbjEmdXRtX2NhbXBhaWduPW10bTA5I0ludGVudDt
+</body>
+</html>
