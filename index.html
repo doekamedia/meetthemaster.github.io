@@ -13,9 +13,10 @@
             min-height: 100vh; margin: 0; text-align: center; 
         }
         .container { padding: 30px; max-width: 400px; }
+        
         .instruction-box {
             background: rgba(0, 0, 0, 0.4); border: 1px solid #47bfff;
-            padding: 25px; border-radius: 4px; text-align: left; margin-bottom: 25px;
+            padding: 25px; border-radius: 4px; text-align: left;
         }
         .step { margin-bottom: 15px; color: #ffffff; display: flex; align-items: flex-start; }
         .step-num {
@@ -24,46 +25,76 @@
             margin-right: 12px; flex-shrink: 0; font-size: 12px; font-weight: bold;
         }
         .highlight { color: #47bfff; font-weight: bold; }
-        
+
+        /* DE KNOP STAAT STANDAARD OP VERBORGEN */
+        #steam-button-container {
+            display: none;
+            margin-top: 25px;
+        }
+
         .go-button {
             width: 100%; background: linear-gradient(to right, #47bfff 5%, #1a44c2 95%);
             color: white; padding: 18px; border-radius: 4px;
             font-weight: bold; border: none; cursor: pointer;
-            font-size: 16px; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 16px; text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Link Restricted</h2>
-        <p>TikTok is blocking the connection. Please follow these steps to visit <span class="highlight">Steam</span>:</p>
-        
-        <div class="instruction-box">
-            <div class="step">
-                <div class="step-num">1</div>
-                <span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the top corner.</span>
-            </div>
-            <div class="step">
-                <div class="step-num">2</div>
-                <span>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</span>
+        <div id="instruction-area">
+            <h2>Almost there...</h2>
+            <p>TikTok is currently blocking the connection. Please follow these steps:</p>
+            
+            <div class="instruction-box">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the top corner.</span>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <span>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</span>
+                </div>
             </div>
         </div>
 
-        <button id="gatekeeper" class="go-button">Continue to Steam</button>
+        <div id="steam-button-container">
+            <h2>Ready!</h2>
+            <p>You can now continue to the store.</p>
+            <button id="real-button" class="go-button">Open Steam Store</button>
+        </div>
     </div>
 
     <script>
-        // We hakken de link in stukjes zodat scanners hem niet herkennen
-        var domain = "https://store.steampowered.com/";
-        var path = "app/3184620/";
-        var track = "?utm_source=TT_instructions";
+        (function() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // We checken of we NIET in TikTok zitten
+            var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
+            var isInstagram = /Instagram/i.test(ua);
+            var isFB = /FBAN|FBAV/i.test(ua);
 
-        document.getElementById('gatekeeper').addEventListener('click', function() {
-            // De link wordt pas gecombineerd NA een klik
-            var finalUrl = domain + path + track;
-            window.location.href = finalUrl;
-        });
+            // Als we in een normale browser zitten (geen in-app social browser)
+            if (!isTikTok && !isInstagram && !isFB) {
+                // Verberg instructies, toon knop
+                document.getElementById('instruction-area').style.display = 'none';
+                document.getElementById('steam-button-container').style.display = 'block';
+
+                // Optioneel: Na 1 seconde ook automatisch doorsturen
+                setTimeout(function() {
+                    goToSteam();
+                }, 1000);
+            }
+
+            function goToSteam() {
+                var d = "https://store.steampowered.com/";
+                var p = "app/3184620/";
+                window.location.href = d + p + "?utm_source=TT_instructions";
+            }
+
+            document.getElementById('real-button').addEventListener('click', goToSteam);
+        })();
     </script>
 
 </body>
