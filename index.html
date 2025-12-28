@@ -95,20 +95,23 @@
         var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
         var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
 
-        // We kijken heel specifiek naar kenmerken van de TikTok-browser
         var ua = navigator.userAgent || navigator.vendor || window.opera;
-        var isTikTok = (ua.indexOf('TikTok') > -1) || (ua.indexOf('Musicaly') > -1);
         
-        // We kijken ook of de pagina binnen een "In-App" omgeving wordt geladen
-        var isInApp = /FBAN|FBAV|Instagram|LinkedIn|Snapchat/i.test(ua);
+        // Detecteer of we in de TikTok-app zitten
+        var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
+        
+        // Detecteer of we in de interne browser zitten (geen echte Safari/Chrome)
+        var isWebview = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua);
 
-        if (isTikTok || isInApp) {
-            // STOP: We zijn in TikTok. 
-            // We doen helemaal niets, de gebruiker MOET de instructies lezen.
-            console.log("In-app browser gedetecteerd. Redirect geblokkeerd.");
+        if (isTikTok || isWebview) {
+            // We zijn in TikTok: STOP de redirect.
+            console.log("Stop: TikTok gedetecteerd. Gebruiker moet instructies lezen.");
+            
+            // Optioneel: We kunnen de URL in de browserbalk 'verstoppen' 
+            // zodat de automatische herkenning van de iPhone stopt.
+            window.history.replaceState(null, null, window.location.pathname);
         } else {
-            // GA DOOR: We zijn in Safari/Chrome/Steam.
-            // Alleen nu sturen we ze door.
+            // We zijn in de echte Safari/Chrome (na de 3 puntjes): GA DOOR.
             window.location.replace(steamUrl);
         }
     })();
