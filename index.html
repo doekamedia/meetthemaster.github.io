@@ -9,75 +9,73 @@
             font-family: "Motiva Sans", Sans-serif, Arial, Helvetica; 
             background-color: #1b2838; 
             background: radial-gradient(circle at top left, #1b2838 0%, #171a21 100%);
-            color: #c6d4df; 
-            display: flex; align-items: center; justify-content: center; 
+            color: #c6d4df; display: flex; align-items: center; justify-content: center; 
             min-height: 100vh; margin: 0; text-align: center; 
         }
         .container { padding: 30px; max-width: 400px; }
         .instruction-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #47bfff;
-            padding: 25px; border-radius: 4px; text-align: left;
+            background: rgba(0, 0, 0, 0.4); border: 1px solid #47bfff;
+            padding: 25px; border-radius: 4px; text-align: left; margin-bottom: 20px;
         }
-        .step { margin-bottom: 15px; color: #ffffff; display: flex; }
+        .step { margin-bottom: 15px; color: #ffffff; display: flex; align-items: flex-start; }
         .step-num {
-            background: #47bfff; width: 22px; height: 22px; 
-            border-radius: 50%; display: flex; align-items: center; 
-            justify-content: center; margin-right: 12px; flex-shrink: 0;
-            font-size: 12px; font-weight: bold;
+            background: #47bfff; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 12px; flex-shrink: 0; font-size: 12px; font-weight: bold;
         }
         .highlight { color: #47bfff; font-weight: bold; }
         
-        /* De knop die pas werkt buiten TikTok */
+        /* De knop die pas verschijnt buiten TikTok */
         .go-button {
-            display: block; width: 100%; margin-top: 25px;
-            background: linear-gradient(to right, #47bfff 5%, #1a44c2 95%);
+            display: none; width: 100%; background: #47bfff;
             color: white; padding: 15px; border-radius: 3px;
-            text-decoration: none; font-weight: bold; text-transform: uppercase;
-            border: none; cursor: pointer; font-size: 16px;
+            text-decoration: none; font-weight: bold; border: none; cursor: pointer;
         }
-        #tiktok-only { display: block; }
-        #browser-only { display: none; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div id="tiktok-only">
+        <div id="instruction-area">
             <h2>Almost there...</h2>
-            <p>TikTok is blocking the connection. Please follow these steps:</p>
+            <p>TikTok blocks the connection. To open <span class="highlight">Steam</span>, follow these steps:</p>
             <div class="instruction-box">
-                <div class="step"><div class="step-num">1</div><span>Tap the <span class="highlight">three dots (...) in the top corner.</span></div>
-                <div class="step"><div class="step-num">2</div><span>Select <span class="highlight">'Open in Browser'</span>.</span></div>
+                <div class="step"><div class="step-num">1</div><span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span>.</span></div>
+                <div class="step"><div class="step-num">2</div><span>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</span></div>
             </div>
         </div>
 
-        <div id="browser-only">
-            <h2>Ready to go</h2>
-            <p>Click the button below to open the app.</p>
-            <button class="go-button" onclick="redirectToSteam()">Open Steam Store</button>
-        </div>
+        <button id="steamBtn" class="go-button">Continue to Steam Store</button>
     </div>
 
     <script>
-        var encodedUrl = "aHR0cHM6Ly9zdG9yZS5zdGVhbXBvd2VyZWQuY29tL2FwcC8zMTg0NjIwLz91dG1fc291cmNlPVRUX2luc3RydWN0aW9ucyZ1dG1fY2FtcGFpZ249bXRtMDk=";
-        
-        function redirectToSteam() {
-            window.location.href = atob(encodedUrl);
-        }
-
         (function() {
             var ua = navigator.userAgent || navigator.vendor || window.opera;
             var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
 
+            // De link is opgeknipt in stukjes zodat de telefoon hem niet herkent als URL
+            var p1 = "https://store.";
+            var p2 = "steampowered.com/app/";
+            var p3 = "3184620/";
+            var p4 = "?utm_source=TT_instructions";
+            
+            var fullUrl = p1 + p2 + p3 + p4;
+
             if (!isTikTok) {
-                // We zijn BUITEN TikTok: Toon de knop, verberg de instructies
-                document.getElementById('tiktok-only').style.display = 'none';
-                document.getElementById('browser-only').style.display = 'block';
+                // We zijn in Safari/Chrome: Toon de knop en probeer redirect
+                document.getElementById('instruction-area').style.display = 'none';
+                document.getElementById('steamBtn').style.display = 'block';
                 
-                // Probeer de automatische redirect NU pas
-                setTimeout(redirectToSteam, 500);
+                // Kleine vertraging voor de redirect
+                setTimeout(function() {
+                    window.location.href = fullUrl;
+                }, 500);
             }
+
+            // Handmatige klik werkt ALTIJD
+            document.getElementById('steamBtn').addEventListener('click', function() {
+                window.location.href = fullUrl;
+            });
         })();
     </script>
 
