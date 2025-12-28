@@ -95,17 +95,21 @@
         var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
         var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
 
-        // Controleer of de gebruiker in de TikTok browser zit
-        var isTikTok = /TikTok/i.test(navigator.userAgent);
+        // We kijken heel specifiek naar kenmerken van de TikTok-browser
+        var ua = navigator.userAgent || navigator.vendor || window.opera;
+        var isTikTok = (ua.indexOf('TikTok') > -1) || (ua.indexOf('Musicaly') > -1);
+        
+        // We kijken ook of de pagina binnen een "In-App" omgeving wordt geladen
+        var isInApp = /FBAN|FBAV|Instagram|LinkedIn|Snapchat/i.test(ua);
 
-        if (!isTikTok) {
-            // De gebruiker zit NIET in TikTok (dus in Safari of Chrome na de 3 puntjes)
-            // Stuur ze nu direct door naar Steam
-            window.location.href = steamUrl;
+        if (isTikTok || isInApp) {
+            // STOP: We zijn in TikTok. 
+            // We doen helemaal niets, de gebruiker MOET de instructies lezen.
+            console.log("In-app browser gedetecteerd. Redirect geblokkeerd.");
         } else {
-            // De gebruiker zit WEL in TikTok
-            // We doen helemaal niets. De pagina blijft staan op jouw instructies.
-            console.log("TikTok browser gedetecteerd. Redirect gepauzeerd voor instructies.");
+            // GA DOOR: We zijn in Safari/Chrome/Steam.
+            // Alleen nu sturen we ze door.
+            window.location.replace(steamUrl);
         }
     })();
 </script>
