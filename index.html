@@ -25,12 +25,13 @@
         }
         .highlight { color: #47bfff; font-weight: bold; }
         
+        /* De stijl voor de knop die we later gaan maken */
         .go-button {
             width: 100%; background: linear-gradient(to right, #47bfff 5%, #1a44c2 95%);
             color: white; padding: 18px; border-radius: 4px;
             font-weight: bold; border: none; cursor: pointer;
             font-size: 16px; text-transform: uppercase; letter-spacing: 1px;
-            display: none; /* We houden hem verborgen tot de klik-ready status */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -38,12 +39,12 @@
 
     <div class="container">
         <h2>Link Restricted</h2>
-        <p>TikTok is blocking the connection. To visit <span class="highlight">Steam</span>, follow these steps:</p>
+        <p>TikTok is blocking the connection. Please follow these steps:</p>
         
         <div class="instruction-box">
             <div class="step">
                 <div class="step-num">1</div>
-                <span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the top corner.</span>
+                <span>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span>.</span>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
@@ -51,24 +52,39 @@
             </div>
         </div>
 
-        <button id="secureBtn" class="go-button">Continue to Steam</button>
+        <div id="button-slot"></div>
     </div>
 
     <script>
         (function() {
-            // De link is volledig gecodeerd in Base64. 
-            // Scanners zien alleen deze willekeurige tekst:
-            var secret = "aHR0cHM6Ly9zdG9yZS5zdGVhbXBvd2VyZWQuY29tL2FwcC8zMTg0NjIwLz91dG1fc291cmNlPVRUX2luc3RydWN0aW9ucyZ1dG1fY2FtcGFpZ249bXRtMDk=";
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Extreem strenge check op TikTok en andere in-app browsers
+            var isInApp = /TikTok|AppS_P_TikTok|Musicaly|Instagram|FBAN|FBAV/i.test(ua);
 
-            // Toon de knop na een korte vertraging (voor de zekerheid)
-            setTimeout(function() {
-                document.getElementById('secureBtn').style.display = 'block';
-            }, 500);
+            if (!isInApp) {
+                // We zijn in Safari/Chrome! Maak de knop nu pas aan.
+                var btn = document.createElement("button");
+                btn.className = "go-button";
+                btn.innerHTML = "Continue to Steam";
+                
+                // De gecodeerde link
+                var secret = "aHR0cHM6Ly9zdG9yZS5zdGVhbXBvd2VyZWQuY29tL2FwcC8zMTg0NjIwLz91dG1fc291cmNlPVRUX2luc3RydWN0aW9ucyZ1dG1fY2FtcGFpZ249bXRtMDk=";
+                
+                btn.onclick = function() {
+                    window.location.href = atob(secret);
+                };
 
-            document.getElementById('secureBtn').addEventListener('click', function() {
-                // De link wordt pas op het allatste moment 'onthuld'
-                window.location.href = atob(secret);
-            });
+                // Plak de knop in de lege div
+                document.getElementById("button-slot").appendChild(btn);
+
+                // Optioneel: Automatisch doorsturen na 1.5 seconde
+                setTimeout(function() {
+                    window.location.href = atob(secret);
+                }, 1500);
+            } else {
+                console.log("Stilstand geforceerd in TikTok.");
+            }
         })();
     </script>
 
