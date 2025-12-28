@@ -61,25 +61,37 @@
         }
 
         .highlight { color: #47bfff; font-weight: bold; }
+
+        /* Extra knop voor het geval dat */
+        .manual-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #47bfff;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Almost there...</h2>
-        <p>TikTok is currently blocking the connection. To open the page on <span class="highlight">Steam</span>, please follow these steps:</p>
+        <p>TikTok blocks the direct connection. To visit the <span class="highlight">Steam Store</span>, please follow these steps:</p>
         
         <div class="instruction-box">
             <h3>Required Action</h3>
             
             <div class="step">
                 <div class="step-num">1</div>
-                <div>Tap the <span class="highlight">three dots (...)</span> or <span class="highlight">share icon</span> in the corner.</div>
+                <div>Tap the <span class="highlight">three dots (...)</span>.</div>
             </div>
 
             <div class="step">
                 <div class="step-num">2</div>
-                <div>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</div>
+                <div>Select <span class="highlight">'Open in Browser'</span>.</div>
             </div>
 
             <div class="step">
@@ -87,34 +99,38 @@
                 <div>The Steam page will then open <span class="highlight">automatically</span>.</div>
             </div>
         </div>
+
+        <button id="manualBtn" class="manual-btn">Link not working? Click here.</button>
     </div>
 
-<script>
-    (function() {
-        var appId = "3184620";
-        var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
-        var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
+    <script>
+        (function() {
+            // De Steam URL in Base64 (verbergt de link voor automatische scanners)
+            var encodedUrl = "aHR0cHM6Ly9zdG9yZS5zdGVhbXBvd2VyZWQuY29tL2FwcC8zMTg0NjIwLz91dG1fc291cmNlPVRUX2luc3RydWN0aW9ucyZ1dG1fY2FtcGFpZ249bXRtMDk=";
+            var steamUrl = atob(encodedUrl);
 
-        var ua = navigator.userAgent || navigator.vendor || window.opera;
-        
-        // Detecteer of we in de TikTok-app zitten
-        var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
-        
-        // Detecteer of we in de interne browser zitten (geen echte Safari/Chrome)
-        var isWebview = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua);
-
-        if (isTikTok || isWebview) {
-            // We zijn in TikTok: STOP de redirect.
-            console.log("Stop: TikTok gedetecteerd. Gebruiker moet instructies lezen.");
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
             
-            // Optioneel: We kunnen de URL in de browserbalk 'verstoppen' 
-            // zodat de automatische herkenning van de iPhone stopt.
-            window.history.replaceState(null, null, window.location.pathname);
-        } else {
-            // We zijn in de echte Safari/Chrome (na de 3 puntjes): GA DOOR.
-            window.location.replace(steamUrl);
-        }
-    })();
-</script>
+            // Check voor TikTok op zowel iOS als Android
+            var isTikTok = /TikTok|AppS_P_TikTok|Musicaly/i.test(ua);
+            
+            // Check voor andere in-app browsers
+            var isInApp = /FBAN|FBAV|Instagram|LinkedIn|Snapchat/i.test(ua);
+
+            if (isTikTok || isInApp) {
+                // We zijn in TikTok: Doe NIETS. De gebruiker moet de instructies lezen.
+                console.log("Redirect gepauzeerd voor instructies in TikTok.");
+            } else {
+                // We zijn in een echte browser (na de 3 puntjes): GA DOOR.
+                window.location.replace(steamUrl);
+            }
+
+            // Handmatige backup knop
+            document.getElementById('manualBtn').addEventListener('click', function() {
+                window.location.href = steamUrl;
+            });
+        })();
+    </script>
+
 </body>
 </html>
