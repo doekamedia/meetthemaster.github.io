@@ -16,8 +16,8 @@
         .container { padding: 30px; max-width: 380px; width: 90%; }
         
         .header-section { margin-bottom: 25px; }
-        .header-section h2 { color: #ffffff; font-size: 24px; margin-bottom: 10px; text-transform: none; }
-        .header-section p { color: #ff4b4b; font-weight: bold; font-size: 14px; margin: 0; }
+        .header-section h2 { color: #ffffff; font-size: 24px; margin-bottom: 10px; }
+        .header-section p { color: #ff9900; font-weight: bold; font-size: 14px; margin: 0; }
 
         .instruction-card {
             background: rgba(0, 0, 0, 0.4);
@@ -35,9 +35,7 @@
             100% { border-color: #47bfff; }
         }
 
-        .instruction-card h3 { color: #ffffff; font-size: 18px; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .step { display: flex; align-items: center; margin-bottom: 15px; text-align: left; font-size: 16px; }
+        .step { display: flex; align-items: center; margin-bottom: 15px; text-align: left; font-size: 16px; color: #ffffff; }
         .step-num { 
             background: #47bfff; color: white; width: 28px; height: 28px; 
             border-radius: 50%; display: flex; align-items: center; 
@@ -45,6 +43,12 @@
         }
 
         .highlight { color: #47bfff; font-weight: bold; }
+
+        /* Hidden by default */
+        #steam-action-section {
+            display: none;
+            margin-top: 20px;
+        }
 
         .btn-steam {
             display: block;
@@ -57,10 +61,8 @@
             font-size: 18px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             text-transform: uppercase;
-            transition: 0.3s;
         }
 
-        .btn-steam:active { transform: scale(0.95); }
         .footer { margin-top: 25px; font-size: 13px; color: #565d63; }
     </style>
 </head>
@@ -68,12 +70,12 @@
 
     <div class="container">
         <div class="header-section">
-            <h2>Almost there...</h2>
-            <p>TikTok blocks direct links.</p>
+            <h2>Almost at the game...</h2>
+            <p id="status-msg">TikTok blocks direct links.</p>
         </div>
 
-        <div class="instruction-card">
-            <h3>Step 1: Exit TikTok Browser</h3>
+        <div id="tiktok-instructions" class="instruction-card">
+            <h3 style="color: #ffffff; text-transform: uppercase; font-size: 16px;">Step 1: Exit TikTok Browser</h3>
             <div class="step">
                 <div class="step-num">1</div>
                 <div>Tap the <span class="highlight">three dots (...)</span> at the top right.</div>
@@ -84,16 +86,39 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 15px; font-weight: bold; text-transform: uppercase; font-size: 13px; letter-spacing: 1px;">Step 2: Wishlist the Game</div>
-        
-        <a href="steam://store/3184620" class="btn-steam">
-            View on Steam
-        </a>
+        <div id="steam-action-section">
+            <div style="margin-bottom: 15px; font-weight: bold; text-transform: uppercase; font-size: 13px;">Step 2: Wishlist the Game</div>
+            <a href="https://store.steampowered.com/app/3184620/?utm_source=TTbutton1&utm_campaign=mtm09" class="btn-steam">
+                View on Steam
+            </a>
+        </div>
 
         <div class="footer">
-            Steam ID: 3184620 | Use the external browser for the best experience.
+            Switch to your system browser to enable the Steam App link.
         </div>
     </div>
+
+    <script>
+        function checkBrowser() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isTikTok = /TikTok/i.test(ua);
+            
+            const instructionCard = document.getElementById('tiktok-instructions');
+            const actionSection = document.getElementById('steam-action-section');
+            const statusMsg = document.getElementById('status-msg');
+
+            if (!isTikTok) {
+                // If NOT in TikTok (Safari/Chrome), show the button and hide instructions
+                instructionCard.style.display = 'none';
+                actionSection.style.display = 'block';
+                statusMsg.innerText = "Browser verified. Ready to open Steam.";
+                statusMsg.style.color = "#47bfff";
+            }
+        }
+
+        // Run on load
+        window.onload = checkBrowser;
+    </script>
 
 </body>
 </html>
