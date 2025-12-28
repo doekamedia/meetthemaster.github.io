@@ -99,26 +99,38 @@
     </div>
 
     <script>
-        function checkBrowser() {
-            const ua = navigator.userAgent || navigator.vendor || window.opera;
-            const isTikTok = /TikTok/i.test(ua);
-            
-            const instructionCard = document.getElementById('tiktok-instructions');
-            const actionSection = document.getElementById('steam-action-section');
-            const statusMsg = document.getElementById('status-msg');
+    function checkBrowser() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        
+        // 1. Check for common strings (TikTok, Instagram, Facebook, etc.)
+        const isCommonInApp = /TikTok|Instagram|FBAN|FBAV|Messenger|Line|Puffin/i.test(ua);
+        
+        // 2. Check for the "Version/X.X" string + Safari, which is how the TikTok WebView 
+        // often identifies on iOS, or the presence of "WebView"
+        const isWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua) || ua.includes('wv');
 
-            if (!isTikTok) {
-                // If NOT in TikTok (Safari/Chrome), show the button and hide instructions
-                instructionCard.style.display = 'none';
-                actionSection.style.display = 'block';
-                statusMsg.innerText = "Browser verified: Ready to open Steam";
-                statusMsg.style.color = "#47bfff";
-            }
+        // 3. Check for specific TikTok sub-strings that appear in newer versions
+        const isTikTokSpecific = ua.includes('ByteLocale') || ua.includes('ByteFullConfig');
+
+        const instructionCard = document.getElementById('tiktok-instructions');
+        const actionSection = document.getElementById('steam-action-section');
+        const statusMsg = document.getElementById('status-msg');
+
+        // If ANY of these are true, we assume they are stuck in the TikTok/In-App browser
+        if (isCommonInApp || isWebView || isTikTokSpecific) {
+            instructionCard.style.display = 'block';
+            actionSection.style.display = 'none';
+        } else {
+            // This is the "Clean" browser (Safari/Chrome/Firefox)
+            instructionCard.style.display = 'none';
+            actionSection.style.display = 'block';
+            statusMsg.innerText = "Browser verified: Ready to open Steam";
+            statusMsg.style.color = "#47bfff";
         }
+    }
 
-        // Run on load
-        window.onload = checkBrowser;
-    </script>
+    window.onload = checkBrowser;
+</script>
 
 </body>
 </html>
