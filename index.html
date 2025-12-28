@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,10 @@
         }
         .container { padding: 30px; max-width: 380px; width: 90%; }
         
-        /* Instructie animatie */
+        .header-section { margin-bottom: 25px; }
+        .header-section h2 { color: #ffffff; font-size: 24px; margin-bottom: 10px; text-transform: none; }
+        .header-section p { color: #ff4b4b; font-weight: bold; font-size: 14px; margin: 0; }
+
         .instruction-card {
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #47bfff;
@@ -32,7 +35,7 @@
             100% { border-color: #47bfff; }
         }
 
-        h2 { color: #ffffff; font-size: 22px; margin: 0 0 15px 0; text-transform: uppercase; }
+        .instruction-card h3 { color: #ffffff; font-size: 18px; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
         
         .step { display: flex; align-items: center; margin-bottom: 15px; text-align: left; font-size: 16px; }
         .step-num { 
@@ -58,33 +61,37 @@
         }
 
         .btn-steam:active { transform: scale(0.95); }
-
-        .footer { margin-top: 20px; font-size: 13px; color: #565d63; }
+        .footer { margin-top: 25px; font-size: 13px; color: #565d63; }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <div class="header-section">
+            <h2>Almost there...</h2>
+            <p>TikTok blocks direct links.</p>
+        </div>
+
         <div class="instruction-card">
-            <h2>Stap 1: Verlaat TikTok</h2>
+            <h3>Step 1: Exit TikTok Browser</h3>
             <div class="step">
                 <div class="step-num">1</div>
-                <div>Tik rechtsboven op de <span class="highlight">...</span></div>
+                <div>Tap the <span class="highlight">three dots (...)</span> at the top right.</div>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
-                <div>Kies <span class="highlight">'Openen in Safari'</span></div>
+                <div>Select <span class="highlight">'Open in Safari'</span> or <span class="highlight">'Open in Browser'</span>.</div>
             </div>
         </div>
 
-        <div style="margin-bottom: 15px; font-weight: bold;">Stap 2: Klik op de knop</div>
+        <div style="margin-bottom: 15px; font-weight: bold; text-transform: uppercase; font-size: 13px; letter-spacing: 1px;">Step 2: Wishlist the Game</div>
         
         <a href="steam://store/3184620" class="btn-steam">
-            Wishlist op Steam
+            View on Steam
         </a>
 
         <div class="footer">
-            De Steam App opent automatisch buiten TikTok.
+            Steam ID: 3184620 | Use the external browser for the best experience.
         </div>
     </div>
 
