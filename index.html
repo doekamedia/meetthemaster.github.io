@@ -17,86 +17,100 @@
             margin: 0; 
             text-align: center; 
         }
-        .container { padding: 20px; max-width: 400px; }
-        h2 { color: #ffffff; font-size: 22px; text-transform: uppercase; margin-bottom: 10px; }
-        p { font-size: 15px; color: #acb2b8; margin-bottom: 20px; }
+        .container { padding: 30px; max-width: 400px; }
         
-        /* De Knop */
-        .btn { 
-            background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%); 
-            color: #ffffff !important; 
-            padding: 16px 30px; 
-            border-radius: 3px; 
-            font-size: 18px; 
-            font-weight: bold; 
-            text-decoration: none; 
-            display: inline-block; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: 0.2s;
+        /* Steam Icon/Logo lookalike */
+        .steam-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.8;
         }
-        .btn:active { transform: scale(0.95); }
 
-        /* Instructie sectie voor TikTok/Safari */
+        h2 { color: #ffffff; font-size: 24px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
+        p { font-size: 16px; color: #acb2b8; margin-bottom: 30px; line-height: 1.4; }
+        
+        /* De centrale instructiebox */
         .instruction-box {
-            margin-top: 35px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #47bfff; /* Steam blauw accent */
+            padding: 25px;
+            border-radius: 4px;
             text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        
         .instruction-box h3 {
-            font-size: 14px;
-            color: #ffffff;
-            margin: 0 0 10px 0;
-            display: flex;
-            align-items: center;
+            font-size: 16px;
+            color: #47bfff;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
         }
+
         .step {
-            font-size: 13px;
-            margin-bottom: 8px;
+            font-size: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: flex-start;
+            color: #ffffff;
         }
+
         .step-num {
             background: #47bfff;
-            color: white;
-            width: 18px;
-            height: 18px;
+            color: #ffffff;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            margin-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 12px;
             flex-shrink: 0;
-            margin-top: 2px;
         }
-        .highlight { color: #ffffff; font-weight: bold; }
+
+        .highlight { 
+            color: #47bfff; 
+            font-weight: bold; 
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #565d63;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Open in Steam</h2>
-        <p>Tap the button to view the game and add it to your <span class="highlight">Wishlist</span>.</p>
+        <h2>Almost there...</h2>
+        <p>To view the game in the <span class="highlight">Steam App</span> and add it to your wishlist, please follow these steps:</p>
         
-        <a href="https://store.steampowered.com/app/3184620/?utm_source=TTbutton1&utm_campaign=mtm09" class="btn" id="steamBtn">
-            VIEW ON STEAM
-        </a>
+        <div class="instruction-box">
+            <h3>Required Action</h3>
+            
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>Tap the <span class="highlight">three dots (...)</span> or the <span class="highlight">share icon</span> in the top corner.</div>
+            </div>
 
-        
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>Select <span class="highlight">'Open in Browser'</span> or <span class="highlight">'Safari'</span>.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div>The Steam app will launch <span class="highlight">automatically</span>.</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            This redirect is required due to in-app browser limitations.
+        </div>
     </div>
-<script>
-  // This runs as soon as the page loads
-  window.onload = function() {
-      // 1. Try to open the Steam App immediately
-      window.location.href = "steam://openurl/https://store.steampowered.com/app/3184620/?utm_source=TTauto1&utm_campaign=mtm09;
-
-      // 2. If they are still on the page after 2 seconds (meaning app didn't open), 
-      // they can still use your manual button.
-  };
-</script>
 
 </body>
 </html>
