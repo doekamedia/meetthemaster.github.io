@@ -89,19 +89,25 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            var appId = "3184620";
-            var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
-            var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
+<script>
+    (function() {
+        var appId = "3184620";
+        var utm = "?utm_source=TT_instructions&utm_campaign=mtm09";
+        var steamUrl = "https://store.steampowered.com/app/" + appId + "/" + utm;
 
-            // Zodra de pagina laadt, proberen we de redirect.
-            // In de TikTok-browser gebeurt er niets (geblokkeerd).
-            // Zodra de gebruiker op "Open in Browser" klikt, opent deze pagina opnieuw in Safari/Chrome.
-            // OMDAT het dan een echte browser is, werkt de redirect naar de Steam-app direct.
+        // Controleer of de gebruiker in de TikTok browser zit
+        var isTikTok = /TikTok/i.test(navigator.userAgent);
+
+        if (!isTikTok) {
+            // De gebruiker zit NIET in TikTok (dus in Safari of Chrome na de 3 puntjes)
+            // Stuur ze nu direct door naar Steam
             window.location.href = steamUrl;
-        })();
-    </script>
-
+        } else {
+            // De gebruiker zit WEL in TikTok
+            // We doen helemaal niets. De pagina blijft staan op jouw instructies.
+            console.log("TikTok browser gedetecteerd. Redirect gepauzeerd voor instructies.");
+        }
+    })();
+</script>
 </body>
 </html>
